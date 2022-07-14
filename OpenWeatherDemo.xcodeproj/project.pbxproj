@@ -13,10 +13,10 @@
 		0F0E0A54287D1B5700050BF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F0E0A52287D1B5700050BF5 /* LaunchScreen.storyboard */; };
 		0F1C7AF4287EA92600E4537E /* DailyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1C7AF3287EA92600E4537E /* DailyDetailViewController.swift */; };
 		0F1C7AF7287EAAA700E4537E /* OpenWeatherModel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1C7AF6287EAAA700E4537E /* OpenWeatherModel+Extension.swift */; };
+		0FD0A1392880196300E57184 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD0A1382880196300E57184 /* WeatherView.swift */; };
 		0FD7880A287D1BE2001F7D9D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0FD78809287D1BE2001F7D9D /* Podfile */; };
 		0FD78827287D2A7F001F7D9D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD78826287D2A7F001F7D9D /* LocationManager.swift */; };
 		0FD7882F287D5F37001F7D9D /* OpenWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD7882E287D5F37001F7D9D /* OpenWeatherModel.swift */; };
-		0FD78834287DC2B3001F7D9D /* DailyWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD78833287DC2B3001F7D9D /* DailyWeatherView.swift */; };
 		0FD7883E287E6A95001F7D9D /* OpenWeatherDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD7883D287E6A95001F7D9D /* OpenWeatherDataManager.swift */; };
 		53D5A5EC4D88EEF323FB0A2C /* Pods_OpenWeatherDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CACE6BD43E41B541285D9F61 /* Pods_OpenWeatherDemo.framework */; };
 /* End PBXBuildFile section */
@@ -30,10 +30,10 @@
 		0F0E0A55287D1B5700050BF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F1C7AF3287EA92600E4537E /* DailyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDetailViewController.swift; sourceTree = "<group>"; };
 		0F1C7AF6287EAAA700E4537E /* OpenWeatherModel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenWeatherModel+Extension.swift"; sourceTree = "<group>"; };
+		0FD0A1382880196300E57184 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		0FD78809287D1BE2001F7D9D /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0FD78826287D2A7F001F7D9D /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0FD7882E287D5F37001F7D9D /* OpenWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherModel.swift; sourceTree = "<group>"; };
-		0FD78833287DC2B3001F7D9D /* DailyWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherView.swift; sourceTree = "<group>"; };
 		0FD7883D287E6A95001F7D9D /* OpenWeatherDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherDataManager.swift; sourceTree = "<group>"; };
 		ADCD3EEE1F65EC41C9618757 /* Pods-OpenWeatherDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenWeatherDemo.release.xcconfig"; path = "Target Support Files/Pods-OpenWeatherDemo/Pods-OpenWeatherDemo.release.xcconfig"; sourceTree = "<group>"; };
 		CACE6BD43E41B541285D9F61 /* Pods_OpenWeatherDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenWeatherDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,8 +74,9 @@
 		0F0E0A46287D1B4E00050BF5 /* OpenWeatherDemo */ = {
 			isa = PBXGroup;
 			children = (
-				0FD78833287DC2B3001F7D9D /* DailyWeatherView.swift */,
+				0FD0A1382880196300E57184 /* WeatherView.swift */,
 				0FD7882E287D5F37001F7D9D /* OpenWeatherModel.swift */,
+				0F1C7AF6287EAAA700E4537E /* OpenWeatherModel+Extension.swift */,
 				0FD7883D287E6A95001F7D9D /* OpenWeatherDataManager.swift */,
 				0F0E0A47287D1B4E00050BF5 /* AppDelegate.swift */,
 				0F0E0A4B287D1B4E00050BF5 /* ViewController.swift */,
@@ -84,7 +85,6 @@
 				0F0E0A55287D1B5700050BF5 /* Info.plist */,
 				0FD78826287D2A7F001F7D9D /* LocationManager.swift */,
 				0F1C7AF3287EA92600E4537E /* DailyDetailViewController.swift */,
-				0F1C7AF6287EAAA700E4537E /* OpenWeatherModel+Extension.swift */,
 			);
 			path = OpenWeatherDemo;
 			sourceTree = "<group>";
@@ -224,9 +224,9 @@
 				0FD7882F287D5F37001F7D9D /* OpenWeatherModel.swift in Sources */,
 				0F0E0A4C287D1B4E00050BF5 /* ViewController.swift in Sources */,
 				0F0E0A48287D1B4E00050BF5 /* AppDelegate.swift in Sources */,
+				0FD0A1392880196300E57184 /* WeatherView.swift in Sources */,
 				0F1C7AF7287EAAA700E4537E /* OpenWeatherModel+Extension.swift in Sources */,
 				0FD7883E287E6A95001F7D9D /* OpenWeatherDataManager.swift in Sources */,
-				0FD78834287DC2B3001F7D9D /* DailyWeatherView.swift in Sources */,
 				0FD78827287D2A7F001F7D9D /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -5,34 +5,28 @@
 //  Created by 沈庾涛 on 2022/7/12.
 //
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let OpenWeatherModel = try? newJSONDecoder().decode(OpenWeatherModel.self, from: jsonData)
-
 import Foundation
-
 
 // MARK: - OpenWeatherModel
 struct OpenWeatherModel: Codable {
     let lat, lon: Double
-    let timezone: String
     let current: Current
     let daily: [Daily]
 
     enum CodingKeys: String, CodingKey {
-        case lat, lon, timezone, current, daily
+        case lat, lon, current, daily
     }
 }
 
 // MARK: - Current
 struct Current: Codable {
-    let dt: Int
+    let dt: Double
     let temp: Double
-    let weather: [Weather]
+    let weatherArray: [Weather]
 
     enum CodingKeys: String, CodingKey {
-        case dt, temp, weather
+        case dt, temp
+        case weatherArray = "weather"
     }
 }
 
@@ -68,6 +62,5 @@ struct Daily: Codable {
 
 // MARK: - Temperature
 struct Temperature: Codable {
-    let day, min, max, night: Double
-    let eve, morn: Double
+    let min, max: Double
 }
