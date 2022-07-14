@@ -38,19 +38,26 @@ class WeatherView: UIView {
         addSubview(currentWeatherView)
         currentWeatherView.mas_makeConstraints { make in
             make?.left.right()?.top()?.mas_equalTo()(self)
-            make?.height.equalTo()(96)
+            make?.height.equalTo()(108)
         }
+        
+        let lineView = UIView()
+        currentWeatherView.addSubview(lineView)
+        lineView.mas_makeConstraints { make in
+            make?.height.equalTo()(1 / UIScreen.main.scale)
+            make?.left.right()?.bottom()?.offset()(0)
+        }
+        lineView.backgroundColor = .gray
         
         dailyWeatherTableView = UITableView()
         addSubview(dailyWeatherTableView)
         dailyWeatherTableView.mas_makeConstraints { make in
-            make?.top.equalTo()(currentWeatherView.mas_bottom)?.offset()(16)
+            make?.top.equalTo()(currentWeatherView.mas_bottom)
             make?.left.right()?.bottom()?.mas_equalTo()(self)
         }
         dailyWeatherTableView.dataSource = self
         dailyWeatherTableView.delegate = self
         dailyWeatherTableView.register(DailyWeatherCell.self, forCellReuseIdentifier: DailyWeatherCell.cellIdentifier)
-        dailyWeatherTableView.rowHeight = 56
         dailyWeatherTableView.tableFooterView = UIView()
         
         emptyView = EmptyView()
@@ -91,6 +98,13 @@ extension WeatherView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         selectCallback?(indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let dailyModel = model?.daily[indexPath.row] {
+            return DailyWeatherCell.heightForCell(dailyModel)
+        }
+        return 0
     }
 }
 
@@ -191,6 +205,7 @@ private class DailyWeatherCell: UITableViewCell {
     private var iconImageView: UIImageView!
     private var dateLabel: UILabel!
     private var temperatureLabel: UILabel!
+    private var precipitationLabel: UILabel!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -208,6 +223,12 @@ private class DailyWeatherCell: UITableViewCell {
         iconImageView.sd_setImage(with: dailyModel.weather?.iconUrl, placeholderImage: placeholderImage, options: .retryFailed, context: nil)
         dateLabel.text = dailyModel.dateText
         temperatureLabel.text = dailyModel.temperatureText
+        if let precipitationText = dailyModel.precipitationText {
+            precipitationLabel.isHidden = false
+            precipitationLabel.text = precipitationText
+        } else {
+            precipitationLabel.isHidden = true
+        }
     }
     
     private func configView() {
@@ -219,22 +240,43 @@ private class DailyWeatherCell: UITableViewCell {
             make?.centerY.offset()(0)
         }
         
-        dateLabel = UILabel()
-        addSubview(dateLabel)
-        dateLabel.mas_makeConstraints { make in
+        let labelContainerView = UIView()
+        addSubview(labelContainerView)
+        labelContainerView.mas_makeConstraints { make in
             make?.left.mas_equalTo()(iconImageView.mas_right)?.offset()(16)
-            make?.top.mas_equalTo()(iconImageView)
+            make?.top.bottom()?.right()?.offset()(0)
+        }
+        
+        dateLabel = UILabel()
+        labelContainerView.addSubview(dateLabel)
+        dateLabel.mas_makeConstraints { make in
+            make?.left.offset()(0)
+            make?.top.offset()(8)
         }
         dateLabel.font = UIFont.systemFont(ofSize: 18)
         dateLabel.textColor = .darkGray
         
         temperatureLabel = UILabel()
-        addSubview(temperatureLabel)
+        labelContainerView.addSubview(temperatureLabel)
         temperatureLabel.mas_makeConstraints { make in
-            make?.left.mas_equalTo()(dateLabel)
-            make?.bottom.mas_equalTo()(iconImageView)
+            make?.left.offset()(0)
+            make?.top.mas_equalTo()(dateLabel.mas_bottom)?.offset()(4)
         }
         temperatureLabel.font = UIFont.systemFont(ofSize: 16)
         temperatureLabel.textColor = .gray
+        
+        precipitationLabel = UILabel()
+        labelContainerView.addSubview(precipitationLabel)
+        precipitationLabel.mas_makeConstraints { make in
+            make?.left.offset()(0)
+            make?.top.mas_equalTo()(temperatureLabel.mas_bottom)?.offset()(4)
+        }
+        precipitationLabel.font = UIFont.systemFont(ofSize: 16)
+        precipitationLabel.textColor = .gray
+    }
+    
+    
+    static func heightForCell(_ model: Daily) -> CGFloat {
+        return model.rain == nil ? 56 : 56 + 24
     }
 }

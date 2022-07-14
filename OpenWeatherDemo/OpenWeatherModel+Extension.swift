@@ -16,9 +16,9 @@ extension Daily {
     
     var dateText: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "📅 yyyy-MM-dd EEEE"
+        dateFormatter.dateFormat = "yyyy-MM-dd EEEE"
         let date = Date(timeIntervalSince1970: dt)
-        return dateFormatter.string(from: date)
+        return "📅 \(dateFormatter.string(from: date))"
     }
     
     var temperatureText: String {
@@ -27,6 +27,13 @@ extension Daily {
     
     var detailText: String {
         weather?.weatherDescription ?? ""
+    }
+    
+    var precipitationText: String? {
+        guard let rain = rain else {
+            return nil
+        }
+        return "🌧️ \(String(format: "%.2fmm", rain))"
     }
 }
 
@@ -43,13 +50,13 @@ extension Current {
     
     var dateText: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "📅 Today: yyyy-MM-dd EEEE"
+        dateFormatter.dateFormat = "yyyy-MM-dd EEEE"
         let date = Date(timeIntervalSince1970: dt)
-        return dateFormatter.string(from: date)
+        return "📅 Today: \(dateFormatter.string(from: date))"
     }
     
     var temperatureText: String {
-        "🌡️ Temperatrate: \(Int(temp + 0.5))°C"
+        "🌡️ Current: \(Int(temp + 0.5))°C"
     }
     
     var detailText: String {
